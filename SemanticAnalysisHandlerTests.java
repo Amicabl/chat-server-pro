@@ -38,6 +38,10 @@ public class SemanticAnalysisHandlerTests {
     URI input4 = new URI(url4);
     String expected = "onat: 😂 This message has a LOL vibe.\n\nonat: doggy🥹!!! This message has a awwww vibe. This message ends forcefully.\n\nonat: TGIThanksgiving\n\n";
 
+  @Test
+  public void handleRequestTest5() throws Exception {
+	  ChatHandler h = new ChatHandler();
+
     h.handleRequest(input1);
     h.handleRequest(input2);
     h.handleRequest(input3);
