@@ -37,14 +37,46 @@ public class SemanticAnalysisHandlerTests {
     URI input3 = new URI(url3);
     URI input4 = new URI(url4);
     String expected = "onat: 😂 This message has a LOL vibe.\n\nonat: doggy🥹!!! This message has a awwww vibe. This message ends forcefully.\n\nonat: TGIThanksgiving\n\n";
-
-  @Test
-  public void handleRequestTest5() throws Exception {
-	  ChatHandler h = new ChatHandler();
-
-    h.handleRequest(input1);
-    h.handleRequest(input2);
-    h.handleRequest(input3);
-    assertEquals(expected, h.handleRequest(input4));
   }
+   @Test
+ public void handleRequestSemanticAnalysis2() throws Exception {
+   ChatHandler h = new ChatHandler();
+   String url1 = "http://localhost:4000/chat?user=edwin&message=😂";
+   String url2 = "http://localhost:4000/chat?user=onat&message=doggy🥹!!!";
+   String url3 = "http://localhost:4000/chat?user=onat&message=TGIThanksgiving";
+   String url4 = "http://localhost:4000/semantic-analysis?user=onat";
+
+
+   URI input1 = new URI(url1);
+   URI input2 = new URI(url2);
+   URI input3 = new URI(url3);
+   URI input4 = new URI(url4);
+   String expected ="onat: doggy🥹!!! This message has a awwww vibe. This message ends forcefully.\n\nonat: TGIThanksgiving\n\n";
+
+
+   h.handleRequest(input1);
+   h.handleRequest(input2);
+   h.handleRequest(input3);
+   assertEquals(expected, h.handleRequest(input4));
+ }
+
+
+ @Test
+ public void handleRequestSemanticAnalysis3() throws Exception {
+   ChatHandler h = new ChatHandler();
+   String url2 = "http://localhost:4000/chat?user=onat&message=doggy😂🥹!!!";
+   String url3 = "http://localhost:4000/chat?user=onat&message=TGIThanksgiving";
+   String url4 = "http://localhost:4000/semantic-analysis?user=onat";
+
+
+   URI input2 = new URI(url2);
+   URI input3 = new URI(url3);
+   URI input4 = new URI(url4);
+   String expected ="onat: doggy😂🥹!!! This message has a LOL vibe. This message has a awwww vibe. This message ends forcefully.\n\nonat: TGIThanksgiving\n\n";
+
+
+   h.handleRequest(input2);
+   h.handleRequest(input3);
+   assertEquals(expected, h.handleRequest(input4));
+ }
 }
